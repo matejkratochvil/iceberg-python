@@ -1323,12 +1323,12 @@ def _get_column_projection_values(
     for field_id in project_schema_diff:
         for partition_field in partition_spec.fields_by_source_id(field_id):
             if isinstance(partition_field.transform, IdentityTransform):
-                accesor = accessors.get(partition_field.field_id)
+                accessor = accessors.get(partition_field.field_id)
 
-                if accesor is None:
+                if accessor is None:
                     continue
 
-                if partition_value := accesor.get(file.partition):
+                if partition_value := accessor.get(file.partition):
                     projected_missing_fields[partition_field.name] = partition_value
 
     return True, projected_missing_fields
